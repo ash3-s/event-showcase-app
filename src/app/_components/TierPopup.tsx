@@ -34,7 +34,7 @@ export default function TierPopup({ onTierChosen }: TierPopupProps) {
     return (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-md flex items-center justify-center z-50">
             <div className="bg-white/80 dark:bg-white/10 backdrop-blur-xl border border-gray-300 dark:border-white/20 rounded-2xl p-8 max-w-md w-full shadow-xl animate-fadeInUp">
-                <h2 className="text-2xl font-extrabold text-center mb-6 text-gray-800 dark:text-white">
+                <h2 className="text-2xl font-extrabold text-center mb-6 text-gray-600">
                     Choose Your Plan
                 </h2>
                 <div className="grid grid-cols-2 gap-4">
