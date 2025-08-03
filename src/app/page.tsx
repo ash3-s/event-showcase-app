@@ -1,103 +1,129 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  SignUp,
+  SignUpButton,
+  useUser
+} from "@clerk/nextjs";
+
+const TIERS = [
+  { id: "free", name: "Free", desc: "Start exploring events!" },
+  { id: "silver", name: "Silver", desc: "Unlock more content." },
+  { id: "gold", name: "Gold", desc: "Premium perks await." },
+  { id: "platinum", name: "Platinum", desc: "All-access VIP pass" },
+];
+
+export default function LandingPage() {
+  const { isLoaded, user } = useUser();
+  const [typed, setTyped] = useState("");
+  const slogan = "Discover Events, Your Way";
+
+
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 to-black text-white flex flex-col">
+      <motion.header
+        initial={{ y: -60, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: "spring", stiffness: 120 }}
+        className="p-6 flex justify-between items-center"
+      >
+        <h1 className="text-2xl font-bold">Event Scope</h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+
+        <div className="space-x-4">
+          <SignedOut>
+            <SignInButton>
+              <button className="px-4 py-2 bg-indigo-600 rounded hover:bg-indigo-500">
+                Sign In
+              </button>
+            </SignInButton>
+            <SignUpButton>
+              <button className="px-4 py-2 bg-green-600 rounded hover:bg-green-500">
+                Sign Up
+              </button>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <Link href="/dashboard">
+              <button className="px-4 py-2 bg-green-500 rounded hover:bg-green-400">
+                Dashboard
+              </button>
+            </Link>
+          </SignedIn>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+      </motion.header>
+
+      <motion.main
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3, duration: 1 }}
+        className="flex-1 flex flex-col justify-center items-center text-center px-4"
+      >
+        <motion.h2
+          className="text-4xl sm:text-6xl font-extrabold mb-4"
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 100 }}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+          {slogan}
+        </motion.h2>
+        <p className="max-w-xl mb-8 text-lg text-gray-300">
+          Tailored events delivered based on your membership tier.
+        </p>
+        <SignedIn>
+          <Link href="/upgrade">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-6 py-3 bg-yellow-500 rounded text-black font-semibold"
+            >
+              Upgrade Plan
+            </motion.button>
+          </Link>
+        </SignedIn>
+      </motion.main>
+
+      <motion.section
+        className="py-12 bg-gray-900"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.15 } }
+        }}
+      >
+        <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
+          {TIERS.map((tier, i) => (
+            <motion.div
+              key={tier.id}
+              variants={{
+                hidden: { y: 40, opacity: 0 },
+                visible: { y: 0, opacity: 1 }
+              }}
+              className="bg-gray-800 p-6 rounded-xl shadow-lg flex flex-col items-center"
+            >
+              <h3 className="text-xl font-semibold mb-2">{tier.name}</h3>
+              <p className="text-gray-400 mb-4">{tier.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.section>
+
+      <motion.footer
+        initial={{ y: 40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="p-6 text-center text-gray-500 text-sm"
+      >
+        &copy; {new Date().getFullYear()} Event Scope. All rights reserved.
+      </motion.footer>
     </div>
   );
 }
