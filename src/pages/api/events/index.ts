@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import useSupabaseClient from "@/pages/_init/SupabaseClient";
+import { createSupabaseClient } from "@/lib/SupabaseClient";
 import { getAuth, clerkClient } from "@clerk/nextjs/server";
 
 type tierType = "free" | "silver" | "gold" | "platinum";
@@ -27,7 +27,7 @@ export default async function GetEvents(
       if (!tier || !(tier in eventPriority)) {
         return res.status(400).json({ error: "Invalid user tier" });
       }
-      const supabase = useSupabaseClient(req);
+      const supabase = createSupabaseClient(req);
       if (!supabase) {
         return res
           .status(500)

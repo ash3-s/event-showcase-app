@@ -23,7 +23,6 @@ export default function DashboardPage() {
     useEffect(() => {
         if (!readyToFetch) return;
         (async () => {
-            const token = await getToken();
             const res = await GetAPIHandler("/api/events")
             if (!res || !res.ok) {
                 console.error("Failed to fetch events");
