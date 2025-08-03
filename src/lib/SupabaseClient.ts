@@ -5,13 +5,10 @@ import { NextApiRequest } from "next";
 const supabaseURL = process.env.SUPABASE_URL || "";
 const supabaseAnonKey = process.env.SUPABASE_ANON_KEY || "";
 
-function useSupabaseClient(request: NextApiRequest): SupabaseClient {
+export function createSupabaseClient(request: NextApiRequest): SupabaseClient {
   const { getToken } = getAuth(request);
 
-  const supabase: SupabaseClient = createClient(supabaseURL, supabaseAnonKey, {
+  return createClient(supabaseURL, supabaseAnonKey, {
     accessToken: async () => getToken() ?? null,
   });
-
-  return supabase;
 }
-export default useSupabaseClient;

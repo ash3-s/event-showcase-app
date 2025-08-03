@@ -1,15 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import {
   SignedIn,
   SignedOut,
   SignInButton,
-  SignUp,
-  SignUpButton,
-  useUser
+  SignUpButton
 } from "@clerk/nextjs";
 
 const TIERS = [
@@ -20,8 +17,6 @@ const TIERS = [
 ];
 
 export default function LandingPage() {
-  const { isLoaded, user } = useUser();
-  const [typed, setTyped] = useState("");
   const slogan = "Discover Events, Your Way";
 
 
@@ -100,7 +95,7 @@ export default function LandingPage() {
         }}
       >
         <div className="max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4">
-          {TIERS.map((tier, i) => (
+          {TIERS.map((tier) => (
             <motion.div
               key={tier.id}
               variants={{
