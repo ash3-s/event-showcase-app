@@ -6,7 +6,8 @@ import {
   SignedIn,
   SignedOut,
   SignInButton,
-  SignUpButton
+  SignUpButton,
+  UserButton
 } from "@clerk/nextjs";
 
 const TIERS = [
@@ -32,7 +33,7 @@ export default function LandingPage() {
         <h1 className="text-2xl font-bold">Event Scope</h1>
 
 
-        <div className="space-x-4">
+        <div className="space-x-4 flex items-center">
           <SignedOut>
             <SignInButton>
               <button className="px-4 py-2 bg-indigo-600 rounded hover:bg-indigo-500">
@@ -51,6 +52,7 @@ export default function LandingPage() {
                 Dashboard
               </button>
             </Link>
+            <UserButton />
           </SignedIn>
         </div>
       </motion.header>
